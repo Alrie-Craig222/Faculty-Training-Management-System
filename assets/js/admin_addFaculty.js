@@ -49,14 +49,7 @@ import { supabase } from '../../src/supabase.js';
     })
   }
 
-  /**
-   * Search bar toggle
-   */
-  if (select('.search-bar-toggle')) {
-    on('click', '.search-bar-toggle', function(e) {
-      select('.search-bar').classList.toggle('search-bar-show')
-    })
-  }
+ 
 
   /**
    * Navbar links active state on scroll
@@ -338,159 +331,12 @@ import { supabase } from '../../src/supabase.js';
 
 })();
 
-// var form = document.getElementById("myForm"),
-//     imgInput = document.querySelector(".img"),
-//     file = document.getElementById("imgInput"),
-//     userName = document.getElementById("name"),
-//     email = document.getElementById("email"),
-//     phone = document.getElementById("phone"),
-//     hour = document.getElementById("hour"),
-//     type = document.getElementById("type"),
-//     submitBtn = document.querySelector(".submit"),
-//     userInfo = document.getElementById("data"),
-//     modal = document.getElementById("userForm"),
-//     modalTitle = document.querySelector("#userForm .modal-title"),
-//     newUserBtn = document.querySelector(".newUser")
-
-
-// let getData = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : []
-
-// let isEdit = false, editId
-// showInfo()
-
-// newUserBtn.addEventListener('click', ()=> {
-//     submitBtn.innerText = 'Submit',
-//     modalTitle.innerText = "Fill the Form"
-//     isEdit = false
-//     imgInput.src = "Profile Icon.png"
-//     form.reset()
-// })
-
-
-// file.onchange = function(){
-//     if(file.files[0].size < 1000000){ // 1MB = 1000000
-//         var fileReader = new FileReader();
-
-//         fileReader.onload = function(e){
-//             imgUrl = e.target.result
-//             imgInput.src = imgUrl
-//         }
-
-//         fileReader.readAsDataURL(file.files[0])
-//     }
-//     else{
-//         alert("This file is too large!")
-//     }
-// }
-
-
-// function showInfo(){
-//     document.querySelectorAll('.employeeDetails').forEach(info => info.remove())
-//     getData.forEach((element, index) => {
-//         let createElement = `<tr class="employeeDetails">
-//             <td>${index+1}</td>
-//             <td><img src="${element.picture}" alt="" width="50" height="50"></td>
-//             <td>${element.employeeName}</td>
-//             <td>${element.employeeEmail}</td>
-//             <td>${element.employeePhone}</td>
-//             <td>${element.employeeHour}</td>
-//             <td>${element.employeeType}</td>
-
-//             <td>
-//                 <button class="btn btn-success" onclick="readInfo('${element.picture}', '${element.employeeName}', '${element.employeeEmail}', '${element.employeePhone}', '${element.employeeHour}', '${element.employeeType}')" data-bs-toggle="modal" data-bs-target="#readData"><i class="bi bi-eye"></i></button>
-
-//                 <button class="btn btn-primary" onclick="editInfo(${index}, '${element.picture}', '${element.employeeName}', '${element.employeeEmail}', '${element.employeePhone}', '${element.employeeHour}', '${element.employeeType}')" data-bs-toggle="modal" data-bs-target="#userForm"><i class="bi bi-pencil-square"></i></button>
-
-//                 <button class="btn btn-danger" onclick="deleteInfo(${index})"><i class="bi bi-trash"></i></button>
-                            
-//             </td>
-//         </tr>`
-
-//         userInfo.innerHTML += createElement
-//     })
-// }
-// showInfo()
-
-
-// function readInfo(pic, name, email, phone, hour, type, sDate){
-//     document.querySelector('.showImg').src = pic,
-//     document.querySelector('#showName').value = name,
-//     document.querySelector("#showEmail").value = email,
-//     document.querySelector("#showPhone").value = phone,
-//     document.querySelector("#showHour").value = hour,
-//     document.querySelector("#showType").value = type,
-//     document.querySelector("#showsDate").value = sDate
-// }
-
-
-// function editInfo(index, pic, name, Email, Phone, Hour, Type){
-//     isEdit = true
-//     editId = index
-//     imgInput.src = pic
-//     userName.value = name
-//     email.value = Email,
-//     phone.value = Phone,
-//     hour.value = Hour,
-//     type.value = Type
-
-//     submitBtn.innerText = "Update"
-//     modalTitle.innerText = "Update The Form"
-// }
-
-
-// function deleteInfo(index){
-//     if(confirm("Are you sure want to delete?")){
-//         getData.splice(index, 1)
-//         localStorage.setItem("userProfile", JSON.stringify(getData))
-//         showInfo()
-//     }
-// }
-
-
-// form.addEventListener('submit', (e)=> {
-//     e.preventDefault()
-
-//     const information = {
-//         picture: imgInput.src == undefined ? "Profile Icon.png" : imgInput.src,
-//         employeeName: userName.value,
-//         employeeEmail: email.value,
-//         employeePhone: phone.value,
-//         employeeHour: hour.value,
-//         employeeType: type.value,
-       
-//     }
-
-//     if(!isEdit){
-//         getData.push(information)
-//     }
-//     else{
-//         isEdit = false
-//         getData[editId] = information
-//     }
-
-//     localStorage.setItem('userProfile', JSON.stringify(getData))
-
-//     submitBtn.innerText = "Submit"
-//     modalTitle.innerHTML = "Fill The Form"
-
-//     showInfo()
-
-//     form.reset()
-
-//     imgInput.src = "Profile Icon.png"  
-
-//     // modal.style.display = "none"
-//     // document.querySelector(".modal-backdrop").remove()
-
-    
-// })
-
 
 const form = document.getElementById("myForm");
 const imgPreview = document.querySelector(".img");
 const imgInput = document.getElementById("imgInput");
 const firstNameInput = document.getElementById("name");
-const lastNameInput = document.getElementById("lastName"); // Renamed for accuracy
+const lastNameInput = document.getElementById("lastName");
 const emailInput = document.getElementById("email");
 const phoneInput = document.getElementById("hour");
 const dateJoinedInput = document.getElementById("type");
@@ -499,20 +345,55 @@ const submitBtn = document.querySelector(".submit");
 const userInfo = document.getElementById("data");
 const modalTitle = document.querySelector("#userForm .modal-title");
 
-let isEdit = false, editId;
+let isEdit = false,
+    editId;
 
 // Load data when the document is ready
-document.addEventListener("DOMContentLoaded", fetchUserData);
-submitBtn.addEventListener('click', handleSubmit);
+document.addEventListener("DOMContentLoaded", () => {
+    fetchUserData();
+
+    // Event delegation for edit and delete buttons
+    document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("edit-btn")) {
+            const userId = e.target.closest("tr").getAttribute("data-user-id");
+            editUser(userId);
+        } else if (e.target.classList.contains("delete-btn")) {
+            const userId = e.target.closest("tr").getAttribute("data-user-id");
+            deleteUser(userId);
+        }
+    });
+});
+
+// Function to preview the uploaded image
+function previewImage(event) {
+  const fileInput = event.target; // Get the input element
+  const imgPreview = document.querySelector('.img'); // Get the image element
+
+  if (fileInput.files && fileInput.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      imgPreview.src = e.target.result; // Set the image source to the uploaded file's data
+    };
+
+    reader.readAsDataURL(fileInput.files[0]); // Read the uploaded file as a data URL
+  } else {
+    imgPreview.src = 'assets/img/picon.png'; // Reset to default if no file is selected
+  }
+}
+
+
+
+submitBtn.addEventListener("click", handleSubmit);
 
 // Fetch and display faculty data from Supabase
 async function fetchUserData() {
-    const { data, error } = await supabase.from('faculty').select('*');
+    const { data, error } = await supabase.from("faculty").select("*");
     if (error) {
         console.error("Error fetching data:", error);
         return;
     }
-    userInfo.innerHTML = '';
+    userInfo.innerHTML = "";
     data.forEach((user, index) => {
         userInfo.innerHTML += createTableRow(user, index);
     });
@@ -533,45 +414,43 @@ async function handleSubmit(e) {
 
     if (isEdit) {
         // Update existing data
-        const { error } = await supabase
-            .from('faculty')
-            .update(userData)
-            .eq('id', editId);
+        const { error } = await supabase.from("faculty").update(userData).eq("id", editId);
         if (error) {
             console.error("Error updating data:", error);
             return;
         }
     } else {
         // Insert new data
-        const { error } = await supabase
-            .from('faculty')
-            .insert([userData]);
+        const { error } = await supabase.from("faculty").insert([userData]);
         if (error) {
             console.error("Error inserting data:", error);
             return;
         }
     }
 
+    // Reset form and modal
     form.reset();
     imgPreview.src = "assets/img/picon.png"; // Reset preview
     isEdit = false;
+    const userFormModal = bootstrap.Modal.getInstance(document.getElementById("userForm"));
+    userFormModal.hide();
+
+    // Refresh data
     await fetchUserData();
 }
 
-// Populate form for editing
+// Edit user data
 async function editUser(userId) {
     isEdit = true;
     editId = userId;
-    const { data, error } = await supabase
-        .from('faculty')
-        .select('*')
-        .eq('id', userId)
-        .single();
+
+    const { data, error } = await supabase.from("faculty").select("*").eq("id", userId).single();
     if (error) {
         console.error("Error fetching user:", error);
         return;
     }
 
+    // Populate form with user data
     imgPreview.src = data.picture || "assets/img/picon.png";
     firstNameInput.value = data.first_name;
     lastNameInput.value = data.last_name;
@@ -579,16 +458,17 @@ async function editUser(userId) {
     phoneInput.value = data.phone;
     dateJoinedInput.value = data.date_joined;
     deptInput.value = data.dept;
-    modalTitle.innerText = "Update Faculty";
+
+    // Open modal with edit title
+    modalTitle.innerText = "Edit Faculty";
+    const userFormModal = new bootstrap.Modal(document.getElementById("userForm"));
+    userFormModal.show();
 }
 
 // Delete user data
 async function deleteUser(userId) {
     if (confirm("Are you sure you want to delete this faculty member?")) {
-        const { error } = await supabase
-            .from('faculty')
-            .delete()
-            .eq('id', userId);
+        const { error } = await supabase.from("faculty").delete().eq("id", userId);
         if (error) {
             console.error("Error deleting user:", error);
             return;
@@ -600,7 +480,7 @@ async function deleteUser(userId) {
 // Create HTML for each table row
 function createTableRow(user, index) {
     return `
-        <tr>
+        <tr data-user-id="${user.id}">
             <td>${index + 1}</td>
             <td><img src="${user.picture}" alt="Profile Picture" width="50" height="50"></td>
             <td>${user.first_name}</td>
@@ -608,11 +488,12 @@ function createTableRow(user, index) {
             <td>${user.email}</td>
             <td>${user.phone}</td>
             <td>${user.date_joined}</td>
-             <td>${user.dept}</td>
+            <td>${user.dept}</td>
             <td>
-                <button class="btn btn-primary" onclick="editUser(${user.id})">Edit</button>
-                <button class="btn btn-danger" onclick="deleteUser(${user.id})">Delete</button>
+                <button class="btn btn-primary edit-btn">Edit</button>
+                <button class="btn btn-danger delete-btn">Delete</button>
             </td>
         </tr>
     `;
 }
+
