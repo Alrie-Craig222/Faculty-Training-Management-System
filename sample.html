@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Homepage</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Faculty Training Management System</h1>
+      <p>Welcome to the Admin Dashboard for the College of Computing and Information Sciences (CCIS)</p>
+    </header>
+    
+    <section class="overview">
+      <h2>Overview</h2>
+      <div class="stats">
+        <div class="stat-item">
+          <h3>Number of Faculty Members</h3>
+          <p id="faculty-count">Loading...</p>
+        </div>
+        <div class="stat-item">
+          <h3>Ongoing Trainings</h3>
+          <p id="ongoing-trainings">Loading...</p>
+        </div>
+        <div class="stat-item">
+          <h3>Completed Trainings</h3>
+          <p id="completed-trainings">Loading...</p>
+        </div>
+        <div class="stat-item">
+          <h3>Pending Approvals</h3>
+          <p id="pending-approvals">Loading...</p>
+        </div>
+      </div>
+      <div class="departments">
+        <h3>Departmental Breakdown</h3>
+        <ul>
+          <li>Computer Science (CS): <span id="cs-data">Loading...</span></li>
+          <li>Information Technology (IT): <span id="it-data">Loading...</span></li>
+          <li>Information Systems (IS): <span id="is-data">Loading...</span></li>
+        </ul>
+      </div>
+    </section>
+    <section class="graphs">
+        <h2>Visual Insights</h2>
+        <div class="graph-container">
+          <canvas id="departmentTrainingGraph"></canvas>
+        </div>
+        <div class="graph-container">
+          <canvas id="trainingProgressGraph"></canvas>
+        </div>
+      </section>
+      
+
+    <section class="actions">
+      <h2>Quick Actions</h2>
+      <button onclick="addTraining()">Add Training Program</button>
+      <button onclick="viewRequests()">Approve Training Requests</button>
+      <button onclick="generateReports()">Generate Reports</button>
+      <button onclick="manageDepartments()">Manage Departments</button>
+    </section>
+
+    <section class="recent-activity">
+      <h2>Recent Activity</h2>
+      <ul id="recent-activity-list">
+        <li>Loading recent activity...</li>
+      </ul>
+    </section>
+
+    <section class="notifications">
+      <h2>Notifications</h2>
+      <ul id="notifications-list">
+        <li>Loading notifications...</li>
+      </ul>
+    </section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
