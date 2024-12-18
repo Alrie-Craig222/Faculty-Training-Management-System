@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>CCIS Faculties</title>
+  <title>Agency Management</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -110,11 +110,10 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item"><a class="nav-link" href="admin/dashboard.html">><i class="bi bi-house-check-fill"></i> Home</a></li>
-      <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-card-list"></i> Faculties</a></li>
-      <li class="nav-item"><a class="nav-link" href="agencies.html"><i class="bi bi-view-list"></i> Agencies</a></li>
+      <li class="nav-item"><a class="nav-link" href="faculties.html"><i class="bi bi-card-list"></i> Faculties</a></li>
+      <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-view-list"></i> Agencies</a></li>
       <li class="nav-item"><a class="nav-link" href="trainings.html"><i class="bi bi-layout-text-window-reverse"></i>Trainings</a></li>
       <li class="nav-item"><a class="nav-link" href="signin.html"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
-
 
     </ul>
 
@@ -123,11 +122,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Faculty</h1>
+      <h1>Agency</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">New Faculty</a></li>
-          <li class="breadcrumb-item active">Add New Faculty</li>
+          <li class="breadcrumb-item">List of Agencies</a></li>
+          <li class="breadcrumb-item active">Add New Agency</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -136,7 +135,7 @@
 
         <div class="row">
             <div class="col-10">
-                <button class="btn btn-dark newUser" data-bs-toggle="modal" data-bs-target="#userForm">Add New Faculty <i class="bi bi-people"></i></button> 
+                <button class="btn btn-dark newUser" data-bs-toggle="modal" data-bs-target="#userForm">Add New Agency <i class="bi bi-view-list"></i></button> 
             </div>
         </div>
 
@@ -147,13 +146,8 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Picture</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Agency Name</th>
                             <th>Email</th>
-                            <th>Contact Number</th>
-                            <th>Date Joined</th>
-                            <th>Department</th>
                             <th>Action</th>
                               
                         </tr>
@@ -167,64 +161,40 @@
 
     </section>
 
+     <!--Modal Form-->
+     <div class="modal fade" id="userForm">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
 
-    <!--Modal Form-->
-    <div class="modal fade" id="userForm">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h4 class="modal-title">Fill the Form</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form action="#" id="myForm">
-                      <div class="card imgholder">
-                          <label for="imgInput" class="upload">
-                            <input type="file" id="imgInput" onchange="previewImage(event)">
-
-                              <i class="bi bi-plus-circle-dotted"></i>
-                          </label>
-                          <img src="assets/img/picon.png" alt="" width="200" height="200" class="img">
-                      </div>
-              
-                      <div class="inputField">
-                          <div>
-                              <label for="name">First Name:</label>
-                              <input type="text" id="name" required>
-                          </div>
-                          <div>
-                              <label for="lastName">Last Name:</label>
-                              <input type="text" id="lastName" required>
-                          </div>
-                          <div>
-                              <label for="email">Email:</label>
-                              <input type="email" id="email" required>
-                          </div>
-                          <div>
-                              <label for="hour">Contact Number:</label>
-                              <input type="text" id="hour" minlength="11" maxlength="11" required>
-                          </div>
-                          <div>
-                              <label for="type">Date Joined:</label>
-                              <input type="date" id="type" required>
-                          </div>
-                          <div>
-                            <label for="type">Department:</label>
-                            <input type="text" id="dept" required>
-                        </div>
-                      </div>
-                  </form>
+              <div class="modal-header">
+                  <h4 class="modal-title">Fill the Form</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" form="myForm" class="btn btn-primary submit">Submit</button>
-                </div>
+              <div class="modal-body">
+                <form action="#" id="myForm">
+                    
+                    <div class="inputField">
+                        <div>
+                            <label for="agency_name">Agency Name:</label>
+                            <input type="text" id="agency_name" required>
+                        </div>
+                        <div>
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" required>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-    </div>
+            
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" form="myForm" class="btn btn-primary submit">Submit</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
 
 
     <!-- Edit Modal -->
@@ -232,7 +202,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
           <div class="modal-header">
-              <h4 class="modal-title">Edit Faculty Details</h4>
+              <h4 class="modal-title">Edit Agency Details</h4>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -240,28 +210,12 @@
                   <div class="inputField">
                       <input type="hidden" id="edit-id">
                       <div>
-                          <label for="edit-name">First Name:</label>
-                          <input type="text" id="edit-name" required>
-                      </div>
-                      <div>
-                          <label for="edit-lastName">Last Name:</label>
-                          <input type="text" id="edit-lastName" required>
+                          <label for="edit-agency_name">Agency Name:</label>
+                          <input type="text" id="edit-agency_name" required>
                       </div>
                       <div>
                           <label for="edit-email">Email:</label>
                           <input type="email" id="edit-email" required>
-                      </div>
-                      <div>
-                          <label for="edit-hour">Contact Number:</label>
-                          <input type="text" id="edit-hour" minlength="11" maxlength="11" required>
-                      </div>
-                      <div>
-                          <label for="edit-type">Date Joined:</label>
-                          <input type="date" id="edit-type" required>
-                      </div>
-                      <div>
-                          <label for="edit-dept">Department:</label>
-                          <input type="text" id="edit-dept" required>
                       </div>
                   </div>
               </form>
@@ -273,42 +227,7 @@
       </div>
   </div>
 </div>
-
-
-
-                </div></tbody>
-
-                <div class="tab-pane fade pt-3" id="profile-change-password">
-                  <!-- Change Password Form -->
-                  <form>
-
-                    <div class="row mb-3">
-                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Change Password</button>
-                    </div>
-                  </form><!-- End Change Password Form -->
-
-                </div>
+     </div></tbody>
 
               </div><!-- End Bordered Tabs -->
 
@@ -345,7 +264,7 @@
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script type="module" src="assets/js/admin_addFaculty.js"></script>
+  <script type="module" src="assets/js/agency.js"></script>
 
 </body>
 

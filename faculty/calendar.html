@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Calendar</title>
+  <style>
+    /* General Styles */
+    body {
+      background-color: #545353;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      margin: 20px;
+      gap: 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .header-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      background-color: #f4f4f4;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .nav-btn:hover {
+      background-color: #ddd;
+    }
+
+    /* Calendar Styles */
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      width: 70%;
+    }
+
+    .calendar div {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+      height: 100px;
+    }
+
+    .calendar div.today {
+      background-color: #dfe6e9;
+      font-weight: bold;
+    }
+
+    /* Upcoming Trainings */
+    .upcoming-trainings {
+      width: 30%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .training-list {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .training-card {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #ffffff;
+    }
+
+    .training-card h3 {
+      margin: 0;
+    }
+
+    .training-card p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .training-card button {
+      margin-top: 5px;
+      padding: 5px 10px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .training-card button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <h1>My Schedule</h1>
+    <div class="header-controls">
+      <button id="prev-month" class="nav-btn">❮</button>
+      <span id="current-month">December 2024</span>
+      <button id="next-month" class="nav-btn">❯</button>
+      <button id="today-btn" class="nav-btn">Today</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Calendar Section -->
+    <div class="calendar" id="calendar"></div>
+
+    <!-- Upcoming Trainings Section -->
+    <div class="upcoming-trainings">
+      <h2>Upcoming Trainings</h2>
+      <div id="training-list" class="training-list">
+        <!-- Dynamic Content -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Data
+    const trainings = [
+      { title: "Advanced Teaching Techniques", date: "2024-12-10", time: "10:00 AM", location: "Room 101" },
+      { title: "Online Teaching Best Practices", date: "2024-12-15", time: "2:00 PM", location: "Online via Zoom" },
+      { title: "Inclusive Education Strategies", date: "2024-12-20", time: "1:00 PM", location: "Room 202" },
+    ];
+
+    // Calendar Variables
+    let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
+
+    // DOM Elements
+    const calendar = document.getElementById("calendar");
+    const trainingList = document.getElementById("training-list");
+    const currentMonthLabel = document.getElementById("current-month");
+
+    // Helper Functions
+    function loadCalendar(month, year) {
+      // Clear Calendar
+      calendar.innerHTML = "";
+
+      // Set Month Label
+      const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+      currentMonthLabel.textContent = `${monthNames[month]} ${year}`;
+
+      // Get First Day of the Month
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      // Add Empty Cells for Previous Month
+      for (let i = 0; i < firstDay; i++) {
+        calendar.innerHTML += `<div></div>`;
+      }
+
+      // Add Day Cells
+      for (let day = 1; day <= daysInMonth; day++) {
+        const today = new Date();
+        const cellDate = new Date(year, month, day);
+        const isToday = today.toDateString() === cellDate.toDateString();
+
+        const trainingForDay = trainings.filter(training => {
+          const trainingDate = new Date(training.date);
+          return trainingDate.toDateString() === cellDate.toDateString();
+        });
+
+        let trainingLabel = trainingForDay.length ? `<br><strong>${trainingForDay[0].title}</strong>` : "";
+
+        calendar.innerHTML += `
+          <div class="${isToday ? "today" : ""}">
+            ${day} ${trainingLabel}
+          </div>`;
+      }
+    }
+
+    function loadUpcomingTrainings() {
+      trainingList.innerHTML = "";
+
+      const upcoming = trainings.filter(training => new Date(training.date) >= new Date());
+      if (upcoming.length === 0) {
+        trainingList.innerHTML = `<p>No upcoming trainings.</p>`;
+      }
+
+      upcoming.forEach(training => {
+        trainingList.innerHTML += `
+          <div class="training-card">
+            <h3>${training.title}</h3>
+            <p>${training.date} - ${training.time}</p>
+            <p>${training.location}</p>
+            <button>View Details</button>
+          </div>`;
+      });
+    }
+
+    // Event Listeners
+    document.getElementById("prev-month").addEventListener("click", () => {
+      currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+      currentYear = (currentMonth === 11) ? currentYear - 1 : currentYear;
+      loadCalendar(currentMonth, currentYear);
+    });
+
+    document.getElementById("next-month").addEventListener("click", () => {
+      currentMonth = (currentMonth === 11) ? 0 : currentMonth + 1;
+      currentYear = (currentMonth === 0) ? currentYear + 1 : currentYear;
+      loadCalendar(currentMonth, currentYear);
+    });
+
+    document.getElementById("today-btn").addEventListener("click", () => {
+      currentMonth = new Date().getMonth();
+      currentYear = new Date().getFullYear();
+      loadCalendar(currentMonth, currentYear);
+    });
+
+    // Initialize
+    loadCalendar(currentMonth, currentYear);
+    loadUpcomingTrainings();
+  </script>
+</body>
+</html>

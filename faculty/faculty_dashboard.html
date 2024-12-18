@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
+  <title>Faculty Dashboard</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -20,6 +20,7 @@
       background-color: var(--background-color);
       font-family: Arial, sans-serif;
     }
+
 
     .sidebar {
       background-color: #686666;
@@ -164,7 +165,7 @@
 }
 
 .graph {
-  max-width: 45%;
+  max-width: 80%;
   height: auto;
 }
 .text-center{
@@ -253,7 +254,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#"><img src="img/ccis_logo.png" alt="Logo" height="100px" width="90px">CCIS Admin</a>
+      <a class="navbar-brand" href="#"><img src="img/ccis_logo.png" alt="Logo" height="100px" width="90px">CCIS Faculty</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -268,8 +269,8 @@
     
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li class="dropdown-header">
-                  <h6>Almarie Maestrado</h6>
-                  <span>Admin</span>
+                  <h6>Maricel Soriano</h6>
+                  <span>Computer Science</span>
                 </li>
                 <li>
                   <hr class="dropdown-divider">
@@ -327,9 +328,7 @@
         <ul class="sidebar-nav">
           <br><br><br><br>
           <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-house-check-fill"></i> Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="../faculties.html"><i class="bi bi-card-list"></i> Faculties</a></li>
-          <li class="nav-item"><a class="nav-link" href="../agencies.html"><i class="bi bi-view-list"></i> Agencies</a></li>
-          <li class="nav-item"><a class="nav-link" href="../trainings.html"><i class="bi bi-layout-text-window-reverse"></i>Trainings</a></li>
+          <li class="nav-item"><a class="nav-link" href="../faculty_trainings.html"><i class="bi bi-layout-text-window-reverse"></i>Trainings</a></li>
           <li class="nav-item"><a class="nav-link" href="../signin.html"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
         </ul>
       </div>
@@ -337,36 +336,27 @@
       <!-- Main Content -->
       <div class="col-md-9">
         <main class="main">
-          <br><br><br><br>
-          <!-- KPIs -->
+          <br><br><br><br> 
           <section class="section row text-center mt-3">
             <!-- Active Trainings -->
             
-            <div class="col-md-4">
+            <div class="col-md-6">
               <div class="card shadow-sm">
                 <div class="card-body kpi-card text-white bg-danger">
-                  <h4 class="card-title">Active Trainings</h4>
-                  <p class="card-text fs-4">15</p>
+                  <h4 class="card-title">Upcoming Trainings</h4>
+                  <p class="card-text fs-4">8</p>
+                  <button class="btn btn-primary"><a href="../faculty_trainings.html"></a>View</button>
                 </div>
               </div>
             </div>
           
             <!-- Enrolled Faculties -->
-            <div class="col-md-4">
+            <div class="col-md-6">
               <div class="card shadow-sm">
                 <div class="card-body kpi-card text-white bg-dark">
-                  <h4 class="card-title">Enrolled Faculties</h4>
-                  <p class="card-text fs-4">120</p>
-                </div>
-              </div>
-            </div>
-          
-            <!-- Completion Rate -->
-            <div class="col-md-4">
-              <div class="card shadow-sm">
-                <div class="card-body kpi-card text-white bg-danger">
-                  <h4 class="card-title">Completion Rate</h4>
-                  <p class="card-text fs-4">85%</p>
+                  <h4 class="card-title">Trainings Attended</h4>
+                  <p class="card-text fs-4">15</p>
+                  <button class="btn btn-primary"><a href="faculty_attended_trainings.html"></a>View</button>
                 </div>
               </div>
             </div>
@@ -376,73 +366,25 @@
        <!-- Performance Graph -->
 <br><br><br>
 <section class="section mt-4">
-  <h2 class="text-center">Performance Monitoring</h2>
+  <h2 class="text-center">Progress Tracking -- Attended Trainings</h2>
   <br><br>
   <div class="graph-container d-flex justify-content-center gap-4">
     <!-- First Graph -->
     <canvas id="performanceGraph" class="graph"></canvas>
-    <!-- Second Graph -->
-    <canvas id="additionalGraph" class="graph"></canvas>
   </div>
 </section>
 
-
-<br><br><br>
-          <!-- Tabs for Faculties, Trainings, and Notifications -->
-          <section class="section mt-5">
-            <ul class="nav nav-tabs" id="adminTabs" role="tablist">
-              <li class="nav-item">
-                <button class="nav-link active" id="trainings-tab" data-bs-toggle="tab" data-bs-target="#trainings" type="button" role="tab">Trainings</button>
-              </li>
-              <li class="nav-item">
-                <button class="nav-link" id="faculties-tab" data-bs-toggle="tab" data-bs-target="#faculties" type="button" role="tab">Faculties</button>
-              </li>
-            </ul>
-            <div class="tab-content mt-3">
-              <!-- Trainings -->
-              <div class="tab-pane fade show active" id="trainings" role="tabpanel">
-                <h5>Training Agencies</h5>
-                <ul id="trainingsList" class="list-group">
-                   <!-- Dynamic list items go here -->
-                  <li class="list-group-item">Microsoft Learn</li>
-                  <li class="list-group-item">Oracle University</li>
-                  <li class="list-group-item">Cisco Networking Academy</li>
-                  <li class="list-group-item">Udacity</li>
-                  <li class="list-group-item">CompTIA</li>
-                  <li class="list-group-item">edX</li>
-                  <li class="list-group-item">Pluralsight</li>
-                  <li class="list-group-item">Skillshare</li>
-                  <li class="list-group-item">Google Digital Garage</li>
-                  <li class="list-group-item">AWS Training and Certification</li>
-                  <li class="list-group-item">LinkedIn Learning</li>
-                  <li class="list-group-item">Red Hat Training</li>
-                  <li class="list-group-item">IBM Skills Gateway</li>
-                  <li class="list-group-item">SANS Institute</li>
-                </ul>
-              </div>
-              <!-- Faculties -->
-              <div class="tab-pane fade" id="faculties" role="tabpanel">
-                <h5>Faculties</h5>
-                <ul id="facultiesList" class="list-group">
-                  <!-- Dynamic list items go here -->
-                  <li class="list-group-item">Dr. Evelyn Morales</li>
-                  <li class="list-group-item">Prof. Michael Tanaka</li>
-                  <li class="list-group-item">Dr. Rajesh Patel </li>
-                  <li class="list-group-item">Dr. Sarah Jenkins</li>
-                  <li class="list-group-item">Prof. Daniel Ocampo</li>
-                  <li class="list-group-item">Dr. Amanda Thompson</li>
-                  <li class="list-group-item">Dr. Hwang Min-seok</li>
-                  <li class="list-group-item">Prof. Carmen Lopez </li>
-                  <li class="list-group-item">Dr. Victor Andrews</li>
-                  <li class="list-group-item">Prof. Alice Santiago</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-        </main>
+<div class="mt-4">
+    <div class="card shadow-sm">
+      <div class="card-header">Monthly Schedule</div>
+      <div class="card-body">
+        <p>View your upcoming trainings and events in the calendar below:</p>
+        <iframe src="calendar.html" style="width: 100%; height: 300px; border: none;"></iframe>
       </div>
     </div>
   </div>
+
+ 
 
   <script>
    // First Graph: Performance Monitoring
@@ -450,11 +392,11 @@
   new Chart(ctx1, {
     type: 'line',
     data: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      labels: ['July', 'August', 'September', 'October', 'November'],
       datasets: [
         {
-          label: 'Performance Rate',
-          data: [65, 75, 70, 80, 90],
+          label: 'Attended Trainings Per Month',
+          data: [2, 4, 1, 5, 3],
           borderColor: '#FF4500',
           backgroundColor: 'rgba(255, 69, 0, 0.2)',
           fill: true,
@@ -470,33 +412,7 @@
     },
   });
 
-  // Second Graph: Additional Graph (e.g., Completion Rate)
-  const ctx2 = document.getElementById('additionalGraph').getContext('2d');
-  new Chart(ctx2, {
-    type: 'bar',
-    data: {
-      labels: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5'],
-      datasets: [
-        {
-          label: 'Completion Rate (%)',
-          data: [85, 90, 78, 88, 92],
-          backgroundColor: '#FF4500',
-          borderColor: '#000',
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { position: 'top' },
-      },
-    },
-  });
-
-    // trainings.forEach(training => document.getElementById('trainingsList').innerHTML += `<li class="list-group-item">${training}</li>`);
-    // faculties.forEach(faculty => document.getElementById('facultiesList').innerHTML += `<li class="list-group-item">${faculty}</li>`);
+   
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

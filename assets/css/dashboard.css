@@ -1260,28 +1260,50 @@ th span {
   }
 }
 
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
-.footer {
-  padding: 20px 0;
-  font-size: 14px;
-  transition: all 0.3s;
-  border-top: 1px solid #cddfff;
+ .footer {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  position: relative;
 }
 
-.footer .copyright {
-  text-align: center;
-  color: #012970;
+.footer-border {
+  background-color: #ff5722; /* Red-orange border color */
+  height: 5px;
+  width: 100%;
 }
 
-.footer .credits {
-  padding-top: 5px;
-  text-align: center;
-  font-size: 13px;
-  color: #012970;
+.footer-title {
+  color: #ff5722; /* Red-orange title color */
+  font-weight: bold;
 }
 
+.footer-link {
+  color: #fff; /* White links */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-link:hover {
+  color: #ff5722; /* Red-orange on hover */
+}
+
+.footer-divider {
+  border-top: 1px solid #ff5722; /* Red-orange divider */
+}
+
+.footer ul {
+  padding: 0;
+  list-style: none;
+}
+
+.footer i {
+  color: #ff5722; /* Red-orange icon color */
+  margin-right: 10px;
+}
+
+.footer p, .footer li {
+  margin: 5px 0;
+}
 
 
 table tr td{
