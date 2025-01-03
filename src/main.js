@@ -38,7 +38,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
       if (userRole === 'admin') {
          window.location.href = 'admin/dashboard.html';
       } else if (userRole === 'faculty') {
-         window.location.href = 'faculty.html';
+         window.location.href = 'faculty/faculty_dashboard.html';
       } else if (userRole === 'training_department') {
          window.location.href = 'training_department.html';
       } else {
