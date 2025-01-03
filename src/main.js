@@ -40,7 +40,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
       } else if (userRole === 'faculty') {
          window.location.href = 'faculty/faculty_dashboard.html';
       } else if (userRole === 'training_department') {
-         window.location.href = 'training_department.html';
+         window.location.href = 'agency/agency_dashboard.html';
       } else {
          alert('Role not recognized. Please contact support.');
       }
