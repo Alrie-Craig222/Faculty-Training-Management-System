@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>CCIS Faculties</title>
+  <title>Training Agency</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -52,8 +52,8 @@
     
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li class="dropdown-header">
-                  <h6>Maricel Soriano</h6>
-                  <span>Computer Science Faculty</span>
+                  <h6>DICT-CARAGA</h6>
+                  <span>Training Agency</span>
                 </li>
                 <li>
                   <hr class="dropdown-divider">
@@ -109,11 +109,12 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item"><a class="nav-link" href="faculty/faculty_dashboard.html">><i class="bi bi-house-check-fill"></i> Home</a></li>
-      <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-layout-text-window-reverse"></i>Upcoming Trainings</a></li>
-      <li class="nav-item"><a class="nav-link" href="faculty_registered-trainings.html"><i class="bi bi-layout-text-window-reverse"></i>Training Registration</a></li>
-      <li class="nav-item"><a class="nav-link" href="completed_trainings.html"><i class="bi bi-list-check"></i> Completed Trainings</a></li>
-      <li class="nav-item"><a class="nav-link" href="signin.html"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+        <li class="nav-item"><a class="nav-link" href="agency/agency_dashboard.html"><i class="bi bi-house-check-fill"></i> Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-layout-text-window-reverse"></i>Trainings</a></li>
+        <li class="nav-item"><a class="nav-link" href="agency_completed-trainings.html"><i class="bi bi-list-check"></i> Completed Trainings</a></li>
+        <li class="nav-item"><a class="nav-link" href="agency_registered-faculties.html"><i class="bi bi-list-check"></i>Trainers</a></li>
+        <li class="nav-item"><a class="nav-link" href="signin.html"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+
 
     </ul>
 
@@ -122,11 +123,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Upcoming Trainings</h1>
+      <h1>Faculty</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Trainings</li>
-          <li class="breadcrumb-item active">Upcoming Trainings</li>
+          <li class="breadcrumb-item">New Faculty</a></li>
+          <li class="breadcrumb-item active">Add New Faculty</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -134,26 +135,26 @@
     <section class="p-3">
 
         <div class="row">
-            <div class="col-12">
-              <div class="col-9">
-                <p>Below are the upcoming trainings</p>
+            <div class="col-10">
+                <button class="btn btn-dark newUser" data-bs-toggle="modal" data-bs-target="#userForm">Add New Faculty <i class="bi bi-people"></i></button> 
             </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
                 <table class="table table-striped table-hover mt-3 text-center table-bordered">
 
                     <thead>
                         <tr>
-                          <th>
-                            Training ID
-                          </th>
-                          <th>
-                            Training Title
-                          </th>
-                          <th data-type="date" data-format="MM/DD/YYYY">Start Date</th>
-                          <th data-type="date" data-format="MM/DD/YYYY">End Date</th>
-                           <th data-type="time"># of Hours</th>
-                          <th>Type</th>
-                          <th>Agency ID</th>
-                          <th>Site</th>
+                            <th>ID</th>
+                            <th>Picture</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Contact Number</th>
+                            <th>Date Joined</th>
+                            <th>Department</th>
+                            <th>Action</th>
                               
                         </tr>
                     </thead>
@@ -165,8 +166,115 @@
         </div>
 
     </section>
-    
+
+
+    <!--Modal Form-->
+    <div class="modal fade" id="userForm">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Fill the Form</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="#" id="myForm">
+                      <div class="card imgholder">
+                          <label for="imgInput" class="upload">
+                            <input type="file" id="imgInput" onchange="previewImage(event)">
+
+                              <i class="bi bi-plus-circle-dotted"></i>
+                          </label>
+                          <img src="assets/img/picon.png" alt="" width="200" height="200" class="img">
+                      </div>
+              
+                      <div class="inputField">
+                          <div>
+                              <label for="name">First Name:</label>
+                              <input type="text" id="name" required>
+                          </div>
+                          <div>
+                              <label for="lastName">Last Name:</label>
+                              <input type="text" id="lastName" required>
+                          </div>
+                          <div>
+                              <label for="email">Email:</label>
+                              <input type="email" id="email" required>
+                          </div>
+                          <div>
+                              <label for="hour">Contact Number:</label>
+                              <input type="text" id="hour" minlength="11" maxlength="11" required>
+                          </div>
+                          <div>
+                              <label for="type">Date Joined:</label>
+                              <input type="date" id="type" required>
+                          </div>
+                          <div>
+                            <label for="type">Department:</label>
+                            <input type="text" id="dept" required>
+                        </div>
+                      </div>
+                  </form>
+              </div>
+              
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" form="myForm" class="btn btn-primary submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Edit Modal -->
+<div class="modal fade" id="editForm">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title">Edit Faculty Details</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="editFacultyForm">
+                  <div class="inputField">
+                      <input type="hidden" id="edit-id">
+                      <div>
+                          <label for="edit-name">First Name:</label>
+                          <input type="text" id="edit-name" required>
+                      </div>
+                      <div>
+                          <label for="edit-lastName">Last Name:</label>
+                          <input type="text" id="edit-lastName" required>
+                      </div>
+                      <div>
+                          <label for="edit-email">Email:</label>
+                          <input type="email" id="edit-email" required>
+                      </div>
+                      <div>
+                          <label for="edit-hour">Contact Number:</label>
+                          <input type="text" id="edit-hour" minlength="11" maxlength="11" required>
+                      </div>
+                      <div>
+                          <label for="edit-type">Date Joined:</label>
+                          <input type="date" id="edit-type" required>
+                      </div>
+                      <div>
+                          <label for="edit-dept">Department:</label>
+                          <input type="text" id="edit-dept" required>
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" form="editFacultyForm" class="btn btn-primary">Save Changes</button>
+          </div>
+      </div>
   </div>
+</div>
+
+
 
                 </div></tbody>
 
@@ -213,49 +321,16 @@
 
   </main><!-- End #main -->
 
- <!-- ======= Footer ======= -->
- <!-- Footer -->
-<footer class="footer text-white">
-  <div class="footer-border"></div>
-  <div class="container py-4">
-    <div class="row">
-      <!-- About Section -->
-      <div class="col-md-3">
-        
-      </div>
-      <div class="col-md-4">
-        <h5 class="footer-title">About CCIS</h5>
-        <p>
-          The College of Computing and Information Sciences is dedicated to excellence in teaching, innovation, and research. Empowering future leaders in technology.
-        </p>
-      </div>
-      <!-- Links Section -->
-      <div class="col-md-2">
-        <h5 class="footer-title">Quick Links</h5>
-        <ul class="list-unstyled">
-          <li><a href="#" class="footer-link">Home</a></li>
-          <li><a href="#" class="footer-link">Programs</a></li>
-          <li><a href="#" class="footer-link">Faculty</a></li>
-          <li><a href="#" class="footer-link">Contact Us</a></li>
-        </ul>
-      </div>
-      <!-- Contact Section -->
-      <div class="col-md-3">
-        <h5 class="footer-title">Contact Us</h5>
-        <ul class="list-unstyled">
-          <li><i class="bi bi-geo-alt-fill"></i> 123 Tech Avenue, City, Country</li>
-          <li><i class="bi bi-envelope-fill"></i> info@ccis.edu</li>
-          <li><i class="bi bi-phone-fill"></i> +123 456 7890</li>
-        </ul>
-      </div>
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
     </div>
-    <hr class="footer-divider">
-    <div class="text-center">
-      <p>&copy; 2024 CCIS. All rights reserved.</p>
+    <div class="credits">
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      Re-Designed by <a href="#">Almarie Maestrado</a>
     </div>
-  </div>
-</footer>
-
+  </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -270,7 +345,7 @@
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script type="module" src="assets/js/trainings.js"></script>
+  <script type="module" src="assets/js/agency_trainings.js"></script>
 
 </body>
 

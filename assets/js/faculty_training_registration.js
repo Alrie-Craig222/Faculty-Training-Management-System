@@ -333,13 +333,14 @@ import { supabase } from '../../src/supabase.js';
 
 
 const form = document.getElementById("myForm");
-const training_titleInput = document.getElementById("training_title");
-const start_dateInput = document.getElementById("start_date");
-const end_dateInput = document.getElementById("end_date");
-const number_of_hoursInput = document.getElementById("number_of_hours");
-const typeInput = document.getElementById("type");
-const agency_idInput = document.getElementById("agency_id");
-const siteInput = document.getElementById("site");
+const imgPreview = document.querySelector(".img");
+const imgInput = document.getElementById("imgInput");
+const firstNameInput = document.getElementById("name");
+const lastNameInput = document.getElementById("lastName");
+const emailInput = document.getElementById("email");
+const phoneInput = document.getElementById("hour");
+const dateJoinedInput = document.getElementById("type");
+const deptInput = document.getElementById("dept");
 const submitBtn = document.querySelector(".submit");
 const userInfo = document.getElementById("data");
 const modalTitle = document.querySelector("#userForm .modal-title");
@@ -363,11 +364,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// Function to preview the uploaded image
+function previewImage(event) {
+  const fileInput = event.target; // Get the input element
+  const imgPreview = document.querySelector('.img'); // Get the image element
+
+  if (fileInput.files && fileInput.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      imgPreview.src = e.target.result; // Set the image source to the uploaded file's data
+    };
+
+    reader.readAsDataURL(fileInput.files[0]); // Read the uploaded file as a data URL
+  } else {
+    imgPreview.src = 'assets/img/picon.png'; // Reset to default if no file is selected
+  }
+}
+
+
+
 submitBtn.addEventListener("click", handleSubmit);
 
 // Fetch and display faculty data from Supabase
 async function fetchUserData() {
-    const { data, error } = await supabase.from("trainings").select("*");
+    const { data, error } = await supabase.from("faculty").select("*");
     if (error) {
         console.error("Error fetching data:", error);
         return;
@@ -382,25 +403,25 @@ async function fetchUserData() {
 async function handleSubmit(e) {
     e.preventDefault();
     const userData = {
-        training_title: training_titleInput.value,
-        start_date: start_dateInput.value,
-        end_date: end_dateInput.value,
-        number_of_hours: number_of_hoursInput.value,
-        type: typeInput.value,
-        agency_id: agency_idInput.value,
-        site: siteInput.value,
+        picture: imgPreview.src || "assets/img/picon.png",
+        first_name: firstNameInput.value,
+        last_name: lastNameInput.value,
+        email: emailInput.value,
+        phone: phoneInput.value,
+        date_joined: dateJoinedInput.value,
+        dept: deptInput.value,
     };
 
     if (isEdit) {
         // Update existing data
-        const { error } = await supabase.from("trainings").update(userData).eq("id", editId);
+        const { error } = await supabase.from("faculty").update(userData).eq("id", editId);
         if (error) {
             console.error("Error updating data:", error);
             return;
         }
     } else {
         // Insert new data
-        const { error } = await supabase.from("trainings").insert([userData]);
+        const { error } = await supabase.from("faculty").insert([userData]);
         if (error) {
             console.error("Error inserting data:", error);
             return;
@@ -409,7 +430,7 @@ async function handleSubmit(e) {
 
     // Reset form and modal
     form.reset();
-    
+    imgPreview.src = "assets/img/picon.png"; // Reset preview
     isEdit = false;
     const userFormModal = bootstrap.Modal.getInstance(document.getElementById("userForm"));
     userFormModal.hide();
@@ -418,19 +439,61 @@ async function handleSubmit(e) {
     await fetchUserData();
 }
 
+// Edit user data
+async function editUser(userId) {
+    isEdit = true;
+    editId = userId;
+
+    const { data, error } = await supabase.from("faculty").select("*").eq("id", userId).single();
+    if (error) {
+        console.error("Error fetching user:", error);
+        return;
+    }
+
+    // Populate form with user data
+    imgPreview.src = data.picture || "assets/img/picon.png";
+    firstNameInput.value = data.first_name;
+    lastNameInput.value = data.last_name;
+    emailInput.value = data.email;
+    phoneInput.value = data.phone;
+    dateJoinedInput.value = data.date_joined;
+    deptInput.value = data.dept;
+
+    // Open modal with edit title
+    modalTitle.innerText = "Edit Faculty";
+    const userFormModal = new bootstrap.Modal(document.getElementById("userForm"));
+    userFormModal.show();
+}
+
+// Delete user data
+async function deleteUser(userId) {
+    if (confirm("Are you sure you want to delete this faculty member?")) {
+        const { error } = await supabase.from("faculty").delete().eq("id", userId);
+        if (error) {
+            console.error("Error deleting user:", error);
+            return;
+        }
+        await fetchUserData();
+    }
+}
 
 // Create HTML for each table row
 function createTableRow(user, index) {
     return `
         <tr data-user-id="${user.id}">
             <td>${index + 1}</td>
-            <td>${user.training_title}</td>
-            <td>${user.start_date}</td>
-            <td>${user.end_date}</td>
-            <td>${user.number_of_hours}</td>
-            <td>${user.type}</td>
-            <td>${user.agency_id}</td>
-            <td>${user.site}</td>
+            <td><img src="${user.picture}" alt="Profile Picture" width="50" height="50"></td>
+            <td>${user.first_name}</td>
+            <td>${user.last_name}</td>
+            <td>${user.email}</td>
+            <td>${user.phone}</td>
+            <td>${user.date_joined}</td>
+            <td>${user.dept}</td>
+            <td>
+                <button class="btn btn-primary edit-btn">Edit</button>
+                <button class="btn btn-danger delete-btn">Delete</button>
+            </td>
         </tr>
     `;
 }
+

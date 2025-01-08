@@ -2,816 +2,463 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary-color: #545353; 
+      --secondary-color: #fff;
+      --background-color: #000;
+    }
 
-  <title>CCIS-FTRMS</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    body {
+      background-color: var(--background-color);
+      font-family: Arial, sans-serif;
+    }
 
-  <!-- Favicons -->
-  <link href="assets/img/Tom1.png" rel="icon">
-  <link href="assets/img/Tom1.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    .sidebar {
+      background-color: #686666;
+      color: #fff; /* White text */
+      min-height: 100vh; 
+    }
+     
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+    
+.sidebar-nav {
+  list-style: none; /* Removes default list styling */
+  padding: 0;
+  margin: 0;
+}
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/dashboard.css" rel="stylesheet">
+.sidebar-nav li {
+  margin-bottom: 20px; /* Space between items */
+}
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Nov 17 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+.sidebar-nav .nav-link {
+  color: #fff; /* White text */
+  text-decoration: none; /* Removes underline */
+  display: flex; /* Aligns icon and text */
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 8px; /* Rounded edges for links */
+  transition: background-color 0.3s, transform 0.2s;
+  font-family: 'Poppins', sans-serif; /* Modern font */
+  font-size: 1rem; /* Readable font size */
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.sidebar-nav .nav-link i {
+  font-size: 1.5rem; /* Larger icon size for visibility */
+  margin-right: 12px; /* Space between icon and text */
+}
+
+.sidebar-nav .nav-link:hover {
+  background-color: #ff5722; /* Red-orange background on hover */
+  color: #fff; /* Ensures text remains white */
+  transform: translateX(5px); /* Slight shift on hover for interactivity */
+}
+
+.sidebar-nav .nav-link.active {
+  background-color: #ff5722; /* Highlight for active link */
+  color: #fff; /* White text */
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); /* Adds depth to active item */
+}
+
+.sidebar-nav .nav-link.active:hover {
+  background-color: #e64a19; /* Slightly darker hover effect for active link */
+}
+
+.sidebar-nav li:last-child .nav-link {
+  margin-top: 40px; /* Adds spacing before the logout button */
+  font-weight: bold;
+}
+
+.sidebar-nav li:last-child .nav-link:hover {
+  background-color: #b71c1c; /* Red hover effect for logout button */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px; /* Adjusts width for smaller screens */
+  }
+
+  .sidebar-nav .nav-link {
+    font-size: 0.9rem; /* Slightly smaller text size */
+  }
+
+  .sidebar-nav .nav-link i {
+    font-size: 1.3rem; /* Adjust icon size */
+  }
+}
+    .navbar {
+      background-color: var(--primary-color);
+      color: var(--background-color);
+      height: 70px; /* Adjust height as needed */
+      padding: 0 20px; /* Adjust padding for spacing */
+    }
+
+    .navbar a.navbar-brand,
+    .navbar-nav .nav-link {
+      color: #fff;
+    }
+
+    .navbar .nav-link:hover {
+      color: var(--secondary-color);
+    }
+
+    .card {
+      border-radius: 12px;
+      border: none;
+      border-color: var(--primary-color);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      color: var(--background-color);
+    }
+
+    .kpi-card {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 20px;
+    }
+
+    .text-white {
+  color: #fff !important;
+}
+
+    .bg-danger {
+      background-color: #FF4500 !important; /* Red-Orange */
+    }
+
+    .bg-dark {
+      background-color: #000 !important; /* Black */
+    }
+
+    .shadow-sm {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .section {
+      padding: 20px;
+}
+
+.graph-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.graph {
+  max-width: 80%;
+  height: auto;
+}
+.text-center{
+  color: #fff;
+}
+    .tab-header {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 5px;
+  }
+
+  .list-group {
+    margin-top: 10px;
+  }
+
+  .list-group-item {
+    border: 1px solid var(--primary-color);
+    color: var(--secondary-color);
+    background-color: var(--background-color);
+    margin-bottom: 5px;
+    border-radius: 5px;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .list-group-item:hover {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    transform: scale(1.02);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .footer {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  position: relative;
+}
+
+.footer-border {
+  background-color: #ff5722; /* Red-orange border color */
+  height: 5px;
+  width: 100%;
+}
+
+.footer-title {
+  color: #ff5722; /* Red-orange title color */
+  font-weight: bold;
+}
+
+.footer-link {
+  color: #fff; /* White links */
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-link:hover {
+  color: #ff5722; /* Red-orange on hover */
+}
+
+.footer-divider {
+  border-top: 1px solid #ff5722; /* Red-orange divider */
+}
+
+.footer ul {
+  padding: 0;
+  list-style: none;
+}
+
+.footer i {
+  color: #ff5722; /* Red-orange icon color */
+  margin-right: 10px;
+}
+
+.footer p, .footer li {
+  margin: 5px 0;
+}
+
+  </style>
 </head>
 
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img src="img/training--logo.png" alt="Logo" height="50px" width="50px"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">
+            <li class="nav-item dropdown pe-3">
 
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/Tom1.png" alt="">
-        <span class="d-none d-lg-block">CCIS-FTRMS</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
-
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
-
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
-            <span class="badge bg-success badge-number">3</span>
-          </a><!-- End Messages Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
-
-          </ul><!-- End Messages Dropdown Items -->
-
-        </li><!-- End Messages Nav -->
-
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/2me.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">John Lester Curro</span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>John Lester Curro</h6>
-              <span>Faculty/Instructor</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="TrainingDept_profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-
-  </header><!-- End Header -->
-
-
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link " href="trainingconductorDashboard.html">
-          <i class="bi bi-house-check-fill"></i>
-          <span>Home</span>
-        </a>
-      </li><!-- End Home Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="Trainings.html">
-          <i class="bi bi-plus-square"></i>
-          <span>Add New Training</span>
-        </a>
-      </li><!-- End Add New Training Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-left"></i>
-          <span>Logout</span>
-        </a>
-      </li><!-- End Logout Page Nav -->
+              <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                <img src="img/admin_prof.jpg" alt="Profile" class="rounded-circle" height="30px" width="35px">
+              </a><!-- End Profile Image Icon -->
+    
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                <li class="dropdown-header">
+                  <h6>DICT--CARAGA</h6>
+                  <span>Training Agency</span>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+    
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="faculty_profile.html">
+                    <i class="bi bi-person"></i>
+                    <span>My Profile</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+    
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                    <i class="bi bi-gear"></i>
+                    <span>Account Settings</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+    
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                    <i class="bi bi-question-circle"></i>
+                    <span>Need Help?</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+    
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Sign Out</span>
+                  </a>
+                </li>
+    
+              </ul><!-- End Profile Dropdown Items -->
+            </li><!-- End Profile Nav -->
+          </a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 sidebar">
+        <ul class="sidebar-nav">
+          <br><br><br><br>
+          <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-house-check-fill"></i> Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="../agency_trainings.html"><i class="bi bi-layout-text-window-reverse"></i>Trainings</a></li>
+          <li class="nav-item"><a class="nav-link" href="../agency_completed-trainings.html"><i class="bi bi-list-check"></i> Completed Trainings</a></li>
+          <li class="nav-item"><a class="nav-link" href="../agency_registered-faculties.html"><i class="bi bi-list-check"></i>Trainers</a></li>
+          <li class="nav-item"><a class="nav-link" href="../signin.html"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+        </ul>
+      </div>
       
-    </ul>
-
-  </aside><!-- End Sidebar-->
-
-  <main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-
-    <section class="section dashboard">
-      <div class="row">
-
-        <!-- Left side columns -->
-        <div class="col-lg-8">
-          <div class="row">
-
-            <div class="card-body">
-              <!-- Add an image here -->
-              <img src="assets/img/Tom.png" alt="CCIS-FTRMS Merchandise Products" class="img-fluid mb-3">
-        
-              <h5 class="card-title">Sales from Merchandise <span>| Today</span></h5>
-        
-              <!-- ... (rest of your code) -->
-        
-            </div>
-            <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Sales  <span>| Today</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-cart"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>145</h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div><!-- End Sales Card -->
-
-            <!-- Revenue Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card revenue-card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Revenue <span>| This Month</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>$3,264</h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div><!-- End Revenue Card -->
-
-           <!-- Welcome Note -->
-<div class="col-xxl-4 col-xl-12">
-  <div class="card info-card welcome-card">
-
-    <div class="filter">
-      <!-- You can customize the icon and dropdown as needed -->
-      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-        <li class="dropdown-header text-start">
-          <h6>Options</h6>
-        </li>
-        <!-- You can add more options as needed -->
-        <li><a class="dropdown-item" href="#">Custom Option 1</a></li>
-        <li><a class="dropdown-item" href="#">Custom Option 2</a></li>
-      </ul>
-    </div>
-
-    <div class="card-body">
-      <!-- Adjust the title and subtitle as needed -->
-      <h5 class="card-title">Welcome to CCIS-FTRMS</h5>
-      <p class="card-subtitle">Your Central Hub for Management and Services</p>
-
-      <!-- You can customize the content and styling as needed -->
-      <div class="d-flex align-items-center">
-        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-          <!-- You can change the icon based on your design -->
-          <i class="bi bi-emoji-smile"></i>
-        </div>
-        <div class="ps-3">
-          <!-- You can customize the welcome message and styling -->
-          <p class="fw-bold">Thank you for choosing CCIS-FTRMS!</p>
-          <p class="small text-muted">We're here to assist you and make your experience seamless.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div><!-- End Welcome Note -->
-
-
-            <!-- Reports -->
-            <div class="col-12">
-              <div class="card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Reports <span>/Today</span></h5>
-
-                  <!-- Line Chart -->
-                  <div id="reportsChart"></div>
-
-                  <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#reportsChart"), {
-                        series: [{
-                          name: 'Sales',
-                          data: [31, 40, 28, 51, 42, 82, 56],
-                        }, {
-                          name: 'Revenue',
-                          data: [11, 32, 45, 32, 34, 52, 41]
-                        }, {
-                          name: 'Customers',
-                          data: [15, 11, 32, 18, 9, 24, 11]
-                        }],
-                        chart: {
-                          height: 350,
-                          type: 'area',
-                          toolbar: {
-                            show: false
-                          },
-                        },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                        fill: {
-                          type: "gradient",
-                          gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'smooth',
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
-                        }
-                      }).render();
-                    });
-                  </script>
-                  <!-- End Line Chart -->
-
-                </div>
-
-              </div>
-            </div><!-- End Reports -->
-
-           <!-- Recent Sales -->
-<div class="col-12">
-  <div class="card recent-sales overflow-auto">
-
-    <div class="filter">
-      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-        <li class="dropdown-header text-start">
-          <h6>Filter</h6>
-        </li>
-
-        <li><a class="dropdown-item" href="#">Today</a></li>
-        <li><a class="dropdown-item" href="#">This Month</a></li>
-        <li><a class="dropdown-item" href="#">This Year</a></li>
-      </ul>
-    </div>
-
-    <div class="card-body">
-      <h5 class="card-title">Recent Activities <span>| Today</span></h5>
-
-      <table class="table table-borderless datatable">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">User</th>
-            <th scope="col">Action</th>
-            <th scope="col">Details</th>
-            <th scope="col">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row"><a href="#">#1234</a></th>
-            <td>Jishialyn Engalan</td>
-            <td><a href="#" class="text-primary">Logged in</a></td>
-            <td>CCIS FTRMS Dashboard</td>
-            <td><span class="badge bg-success">Success</span></td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="#">#5678</a></th>
-            <td>John Lester Curro</td>
-            <td><a href="#" class="text-primary">Created a new entry</a></td>
-            <td>Task: Update User Profiles</td>
-            <td><span class="badge bg-warning">Pending</span></td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="#">#9012</a></th>
-            <td>Almarie Maestrado</td>
-            <td><a href="#" class="text-primary">Updated settings</a></td>
-            <td>Email notifications preferences</td>
-            <td><span class="badge bg-success">Success</span></td>
-          </tr>
-          <!-- Add more rows as needed -->
-
-        </tbody>
-      </table>
-
-    </div>
-
-  </div>
-</div><!-- End Recent Activities -->
-
-
+      <!-- Main Content -->
+      <div class="col-md-9">
+        <main class="main">
+          <br><br><br><br> 
+          <section class="section row text-center mt-3">
+            <!-- Active Trainings -->
             
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-body kpi-card text-white bg-danger">
+                  <h4 class="card-title">Active Trainings</h4>
+                  <p class="card-text fs-4">12</p>
+                  <button class="btn btn-primary"><a href="../faculty_trainings.html"></a>View</button>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Enrolled Faculties -->
+            <div class="col-md-6">
+              <div class="card shadow-sm">
+                <div class="card-body kpi-card text-white bg-dark">
+                  <h4 class="card-title">Registered Trainers</h4>
+                  <p class="card-text fs-4">50</p>
+                  <button class="btn btn-primary"><a href="faculty_attended_trainings.html"></a>View</button>
+                </div>
+              </div>
+            </div>
+          </section>
+          
 
-          </div>
-        </div><!-- End Left side columns -->
-
-        <!-- Right side columns -->
-        <div class="col-lg-4">
-
-          <!-- Recent Faculty Activities -->
-<div class="card">
-  <div class="filter">
-    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-      <li class="dropdown-header text-start">
-        <h6>Filter</h6>
-      </li>
-      <li><a class="dropdown-item" href="#">Today</a></li>
-      <li><a class="dropdown-item" href="#">This Week</a></li>
-      <li><a class="dropdown-item" href="#">This Month</a></li>
-    </ul>
+       <!-- Performance Graph -->
+<br><br><br>
+<section class="section mt-4">
+  <h2 class="text-center">Progress Tracking -- Conducted Trainings</h2>
+  <br><br>
+  <div class="graph-container d-flex justify-content-center gap-4">
+    <!-- First Graph -->
+    <canvas id="performanceGraph" class="graph"></canvas>
   </div>
+</section>
 
-  <div class="card-body">
-    <h5 class="card-title">Recent Faculty Activities <span>| Today</span></h5>
-
-    <div class="activity">
-
-      <div class="activity-item d-flex">
-        <div class="activite-label">32 min</div>
-        <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-        <div class="activity-content">
-          Submitted grades for <a href="#" class="fw-bold text-dark">Computer Science</a> course
-        </div>
-      </div><!-- End activity item-->
-
-      <div class="activity-item d-flex">
-        <div class="activite-label">56 min</div>
-        <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-        <div class="activity-content">
-          Conducted a research seminar on the latest advancements in <a href="#" class="fw-bold text-dark">Artificial Intelligence</a>
-        </div>
-      </div><!-- End activity item-->
-
-      <div class="activity-item d-flex">
-        <div class="activite-label">2 hrs</div>
-        <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-        <div class="activity-content">
-          Attended a faculty meeting to discuss curriculum updates
-        </div>
-      </div><!-- End activity item-->
-
-      <!-- Add more activities as needed -->
-
-    </div>
-
-  </div>
-</div><!-- End Recent Faculty Activities -->
-
-
-          <!-- Website Traffic -->
-          <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
-            <div class="card-body pb-0">
-              <h5 class="card-title">Website Traffic <span>| Today</span></h5>
-
-              <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  echarts.init(document.querySelector("#trafficChart")).setOption({
-                    tooltip: {
-                      trigger: 'item'
-                    },
-                    legend: {
-                      top: '5%',
-                      left: 'center'
-                    },
-                    series: [{
-                      name: 'Access From',
-                      type: 'pie',
-                      radius: ['40%', '70%'],
-                      avoidLabelOverlap: false,
-                      label: {
-                        show: false,
-                        position: 'center'
-                      },
-                      emphasis: {
-                        label: {
-                          show: true,
-                          fontSize: '18',
-                          fontWeight: 'bold'
-                        }
-                      },
-                      labelLine: {
-                        show: false
-                      },
-                      data: [{
-                          value: 1048,
-                          name: 'Search Engine'
-                        },
-                        {
-                          value: 735,
-                          name: 'Direct'
-                        },
-                        {
-                          value: 580,
-                          name: 'Email'
-                        },
-                        {
-                          value: 484,
-                          name: 'Union Ads'
-                        },
-                        {
-                          value: 300,
-                          name: 'Video Ads'
-                        }
-                      ]
-                    }]
-                  });
-                });
-              </script>
-
-            </div>
-          </div><!-- End Website Traffic -->
-
-          <!-- News & Updates Traffic -->
-          <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
-
-            <div class="card-body pb-0">
-              <h5 class="card-title">News &amp; Updates <span>| Today</span></h5>
-
-              <div class="news">
-                <div class="post-item clearfix">
-                  <img src="assets/img/daguil.jpg" alt="">
-                  <h4><a href="#">Congratulations to the Newly-Elected President of Caraga State University - Dr. Rolyn Daguil.</a></h4>
-                  <p></p>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/faculty.jpg" alt="">
-                  <h4><a href="#">New CCIS Faculty Brief</a></h4>
-                  <p></p>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/student.jpg" alt="">
-                  <h4><a href="#">𝐓𝐡𝐞 𝐂𝐚𝐫𝐚𝐠𝐚 𝐒𝐭𝐚𝐭𝐞 𝐔𝐧𝐢𝐯𝐞𝐫𝐬𝐢𝐭𝐲 - 𝐂𝐨𝐥𝐥𝐞𝐠𝐞 𝐨𝐟 𝐄𝐝𝐮𝐜𝐚𝐭𝐢𝐨𝐧 𝐢𝐬 𝐢𝐧 𝐧𝐞𝐞𝐝 𝐨𝐟 𝐎𝐧𝐞 (𝟏) 𝐒𝐭𝐮𝐝𝐞𝐧𝐭 𝐀𝐬𝐬𝐢𝐬𝐭𝐚𝐧𝐭</a></h4>
-                  <p>Qualifications:
-                    -Knowledgeable in MS Office applications
-                    -Can pay attention to details
-                    -Can work with minimal supervision</p>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/pagmaya.jpg">
-                  <h4><a href="#">PAGMAYA 2023</a></h4>
-                  <p>a CCIS  Year end Assessment</p>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/caravan.jpg">
-                  <h4><a href="#">Hiraya Caravan</a></h4>
-                  <p>Nov.28-Dec.15</p>
-                </div>
-
-              </div><!-- End sidebar recent posts-->
-
-            </div>
-          </div><!-- End News & Updates -->
-
-        </div><!-- End Right side columns -->
-
+<!-- <div class="mt-4">
+    <div class="card shadow-sm">
+      <div class="card-header">Monthly Schedule</div>
+      <div class="card-body">
+        <p>View your upcoming trainings and events in the calendar below:</p>
+        <iframe src="calendar.html" style="width: 100%; height: 300px; border: none;"></iframe>
       </div>
-    </section>
+    </div>
+  </div> -->
 
-  </main><!-- End #main -->
+ 
+
+  <script>
+   // First Graph: Performance Monitoring
+  const ctx1 = document.getElementById('performanceGraph').getContext('2d');
+  new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: ['August', 'September', 'October', 'November', 'December'],
+      datasets: [
+        {
+          label: 'Conducted Trainings Per Month',
+          data: [2, 4, 1, 5, 3],
+          borderColor: '#FF4500',
+          backgroundColor: 'rgba(255, 69, 0, 0.2)',
+          fill: true,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top' },
+      },
+    },
+  });
+
+   
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+ <!-- Footer -->
+  <br><br>
+<footer class="footer text-white">
+  <div class="footer-border"></div>
+  <div class="container py-4">
+    <div class="row">
+      <!-- About Section -->
+      <div class="col-md-4">
+        <h5 class="footer-title">About CCIS</h5>
+        <p>
+          The College of Computing and Information Sciences is dedicated to excellence in teaching, innovation, and research. Empowering future leaders in technology.
+        </p>
+      </div>
+      <!-- Links Section -->
+      <div class="col-md-4">
+        <h5 class="footer-title">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="footer-link">Home</a></li>
+          <li><a href="#" class="footer-link">Programs</a></li>
+          <li><a href="#" class="footer-link">Faculty</a></li>
+          <li><a href="#" class="footer-link">Contact Us</a></li>
+        </ul>
+      </div>
+      <!-- Contact Section -->
+      <div class="col-md-4">
+        <h5 class="footer-title">Contact Us</h5>
+        <ul class="list-unstyled">
+          <li><i class="bi bi-geo-alt-fill"></i> 123 Tech Avenue, City, Country</li>
+          <li><i class="bi bi-envelope-fill"></i> info@ccis.edu</li>
+          <li><i class="bi bi-phone-fill"></i> +123 456 7890</li>
+        </ul>
+      </div>
     </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    <hr class="footer-divider">
+    <div class="text-center">
+      <p>&copy; 2024 CCIS. All rights reserved.</p>
     </div>
-  </footer><!-- End Footer -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-
-  <script src="assets/js/dashboard.js"></script>
+  </div>
+</footer>
 
 </body>
 

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>CCIS Faculties</title>
+  <title>Training Agency</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -52,8 +52,8 @@
     
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li class="dropdown-header">
-                  <h6>Maricel Soriano</h6>
-                  <span>Computer Science Faculty</span>
+                  <h6>DICT-CARAGA</h6>
+                  <span>Training Agency</span>
                 </li>
                 <li>
                   <hr class="dropdown-divider">
@@ -110,152 +110,123 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item"><a class="nav-link" href="faculty/faculty_dashboard.html">><i class="bi bi-house-check-fill"></i> Home</a></li>
-      <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-layout-text-window-reverse"></i>Upcoming Trainings</a></li>
-      <li class="nav-item"><a class="nav-link" href="faculty_registered-trainings.html"><i class="bi bi-layout-text-window-reverse"></i>Training Registration</a></li>
+      <li class="nav-item"><a class="nav-link" href="faculty_trainings.html"><i class="bi bi-layout-text-window-reverse"></i>Upcoming Trainings</a></li>
+      <li class="nav-item"><a class="nav-link active" href="#"><i class="bi bi-layout-text-window-reverse"></i>Training Registration</a></li>
       <li class="nav-item"><a class="nav-link" href="completed_trainings.html"><i class="bi bi-list-check"></i> Completed Trainings</a></li>
       <li class="nav-item"><a class="nav-link" href="signin.html"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+
 
     </ul>
 
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
-
     <div class="pagetitle">
-      <h1>Upcoming Trainings</h1>
+      <h1>Registration</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item">Trainings</li>
-          <li class="breadcrumb-item active">Upcoming Trainings</li>
+          <li class="breadcrumb-item"><a href="#">Register</a></li> <!-- Fixed the closing tag -->
+          <li class="breadcrumb-item active">Register To New Training</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
+  
     <section class="p-3">
-
-        <div class="row">
-            <div class="col-12">
-              <div class="col-9">
-                <p>Below are the upcoming trainings</p>
-            </div>
-                <table class="table table-striped table-hover mt-3 text-center table-bordered">
-
-                    <thead>
-                        <tr>
-                          <th>
-                            Training ID
-                          </th>
-                          <th>
-                            Training Title
-                          </th>
-                          <th data-type="date" data-format="MM/DD/YYYY">Start Date</th>
-                          <th data-type="date" data-format="MM/DD/YYYY">End Date</th>
-                           <th data-type="time"># of Hours</th>
-                          <th>Type</th>
-                          <th>Agency ID</th>
-                          <th>Site</th>
-                              
-                        </tr>
-                    </thead>
-
-                    <tbody id="data">
-
-                </table>
-            </div>
+      <div class="row">
+        <div class="col-10">
+          <button class="btn btn-dark newUser" data-bs-toggle="modal" data-bs-target="#userForm">Register <i class="bi bi-people"></i></button>
         </div>
-
+      </div>
+  
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-striped table-hover mt-3 text-center table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Faculty ID</th>
+                <th>Training ID</th>
+                <!-- <th>Registration Date</th> -->
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="data">
+              <!-- Data rows will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
-    
-  </div>
-
-                </div></tbody>
-
-                <div class="tab-pane fade pt-3" id="profile-change-password">
-                  <!-- Change Password Form -->
-                  <form>
-
-                    <div class="row mb-3">
-                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="password" type="password" class="form-control" id="currentPassword">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="newpassword" type="password" class="form-control" id="newPassword">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-primary">Change Password</button>
-                    </div>
-                  </form><!-- End Change Password Form -->
-
-                </div>
-
-              </div><!-- End Bordered Tabs -->
-
-            </div>
+  
+    <!--Modal Form-->
+    <div class="modal fade" id="userForm">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Fill the Form</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-
+          <div class="modal-body">
+            <form action="#" id="myForm">
+              <div class="inputField">
+                <div>
+                  <label for="faculty_id">Faculty ID:</label>
+                  <input type="number" id="faculty_id" required> <!-- Changed type to 'number' -->
+                </div>
+                <div>
+                  <label for="training_id">Training ID:</label>
+                  <input type="number" id="training_id" required> <!-- Changed type to 'number' -->
+                </div>
+                <!-- <div>
+                  <label for="registration_date">Registration Date:</label>
+                  <input type="hidden" id="registration_date" required>
+                </div> -->
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" form="myForm" class="btn btn-primary submit">Submit</button>
+          </div>
         </div>
       </div>
-    </section>
-
-  </main><!-- End #main -->
-
- <!-- ======= Footer ======= -->
- <!-- Footer -->
-<footer class="footer text-white">
-  <div class="footer-border"></div>
-  <div class="container py-4">
-    <div class="row">
-      <!-- About Section -->
-      <div class="col-md-3">
-        
-      </div>
-      <div class="col-md-4">
-        <h5 class="footer-title">About CCIS</h5>
-        <p>
-          The College of Computing and Information Sciences is dedicated to excellence in teaching, innovation, and research. Empowering future leaders in technology.
-        </p>
-      </div>
-      <!-- Links Section -->
-      <div class="col-md-2">
-        <h5 class="footer-title">Quick Links</h5>
-        <ul class="list-unstyled">
-          <li><a href="#" class="footer-link">Home</a></li>
-          <li><a href="#" class="footer-link">Programs</a></li>
-          <li><a href="#" class="footer-link">Faculty</a></li>
-          <li><a href="#" class="footer-link">Contact Us</a></li>
-        </ul>
-      </div>
-      <!-- Contact Section -->
-      <div class="col-md-3">
-        <h5 class="footer-title">Contact Us</h5>
-        <ul class="list-unstyled">
-          <li><i class="bi bi-geo-alt-fill"></i> 123 Tech Avenue, City, Country</li>
-          <li><i class="bi bi-envelope-fill"></i> info@ccis.edu</li>
-          <li><i class="bi bi-phone-fill"></i> +123 456 7890</li>
-        </ul>
+    </div>
+  
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editForm">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Registration</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editFacultyForm">
+              <div class="inputField">
+                <input type="hidden" id="edit-id">
+                <div>
+                  <label for="edit-faculty_id">Faculty ID:</label>
+                  <input type="number" id="edit-faculty_id" required> <!-- Changed type to 'number' -->
+                </div>
+                <div>
+                  <label for="edit-training_id">Training ID:</label>
+                  <input type="number" id="edit-training_id" required> <!-- Changed type to 'number' -->
+                </div>
+                <!-- <div>
+                  <label for="edit-registration_date">Registration Date:</label>
+                  <input type="date" id="edit-registration_date" readonly required>
+                </div> -->
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" form="editFacultyForm" class="btn btn-primary">Save Changes</button>
+          </div>
+        </div>
       </div>
     </div>
-    <hr class="footer-divider">
-    <div class="text-center">
-      <p>&copy; 2024 CCIS. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
-
+  </main>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -270,7 +241,7 @@
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script type="module" src="assets/js/trainings.js"></script>
+  <script type="module" src="assets/js/registered_faculties.js"></script>
 
 </body>
 
