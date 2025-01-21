@@ -331,275 +331,148 @@ import { supabase } from '../../src/supabase.js';
 
 })();
 
-// const form = document.getElementById("myForm");
-// const faculty_idInput = document.getElementById("faculty_id");
-// const faculty_nameInput = document.getElementById("faculty_name");
-// const training_idInput = document.getElementById("training_id");
-// const training_titleInput = document.getElementById("training_title");
-// const start_dateInput = document.getElementById("start_date");
-// const end_dateInput = document.getElementById("end_date");
-// // const registration_dateInput = document.getElementById("registration_date");
-// const userInfo = document.getElementById("data");
-
-
-// let isEdit = false, editId;
-
-// // Load data when the document is ready
-// document.addEventListener("DOMContentLoaded", () => {
-//   fetchUserData();
-
-//   // Event delegation for edit and delete buttons
-//   document.addEventListener("click", (e) => {
-//     if (e.target.classList.contains("edit-btn")) {
-//       const userId = e.target.closest("tr").getAttribute("data-user-id");
-//       editUser(userId);
-//     } else if (e.target.classList.contains("delete-btn")) {
-//       const userId = e.target.closest("tr").getAttribute("data-user-id");
-//       deleteUser(userId);
-//     }
-//   });
-// });
-
-// // Listen for the form submission
-// form.addEventListener("submit", async (e) => {
-//   e.preventDefault();
-
-//   const userData = {
-//     faculty_id: faculty_idInput.value,
-//     faculty_name: faculty_nameInput.value,
-//     training_id: training_idInput.value,
-//     training_title: training_titleInput.value,
-//     start_date: start_dateInput.value,
-//     end_date: end_dateInput.value,
-
-//     // registration_date: registration_dateInput.value,
-//   };
-
-//   if (isEdit) {
-//     // Update existing data
-//     const { error } = await supabase.from("registration").update(userData).eq("id", editId);
-//     if (error) {
-//       console.error("Error updating data:", error);
-//       return;
-//     }
-//   } else {
-//     // Insert new data
-//     const { error } = await supabase.from("registration").insert([userData]);
-//     if (error) {
-//       console.error("Error inserting data:", error);
-//       return;
-//     }
-//   }
-
-//   // Reset form and modal
-//   form.reset();
-//   isEdit = false;
-//   const userFormModal = bootstrap.Modal.getInstance(document.getElementById("userForm"));
-//   userFormModal.hide();
-
-//   // Refresh data
-//   await fetchUserData();
-// });
-
-// // Automatically set the current date and time in the registration_date field
-// // document.getElementById("userForm").addEventListener("show.bs.modal", () => {
-// //   if (!isEdit) {
-// //     const now = new Date();
-// //     const formattedDate = now.toISOString().slice(0, 19).replace("T", " ");
-// //     registration_dateInput.value = formattedDate;
-// //   }
-// // });
-
-// // // Ensure the field is not editable
-// // registration_dateInput.readOnly = true;
-
-
-// async function editUser(userId) {
-//   const { data, error } = await supabase.from("registration").select("*").eq("id", userId).single();
-//   if (error) {
-//     console.error("Error fetching data for edit:", error);
-//     return;
-//   }
-
-//   // Populate the form fields with the fetched data
-//   faculty_idInput.value = data.faculty_id;
-//   faculty_nameInput.value = data.faculty_name;
-//   training_idInput.value = data.training_id;
-//   training_titleInput.value = data.training_title;
-//   start_dateInput.value = data.start_date;
-//   end_dateInput.value = data.end_date;
-//   // registration_dateInput.value = data.registration_date;
-
-//   // Set edit mode and track the user ID being edited
-//   isEdit = true;
-//   editId = userId;
-
-//   // Show the form modal
-//   const userFormModal = new bootstrap.Modal(document.getElementById("userForm"));
-//   userFormModal.show();
-// }
-
-// async function deleteUser(userId) {
-//   if (!confirm("Are you sure you want to delete this record?")) {
-//     return;
-//   }
-
-//   const { error } = await supabase.from("registration").delete().eq("id", userId);
-//   if (error) {
-//     console.error("Error deleting user:", error);
-//     return;
-//   }
-
-//   // Refresh the table data
-//   await fetchUserData();
-// }
-
-
-// // Fetch and display faculty data from Supabase
-// async function fetchUserData() {
-//   const { data, error } = await supabase.from("registration").select("*");
-//   if (error) {
-//     console.error("Error fetching data:", error);
-//     return;
-//   }
-//   console.log(data);
-//   userInfo.innerHTML = "";
-//   data.forEach((user, index) => {
-//     userInfo.innerHTML += createTableRow(user, index);
-//   });
-// }
-
-
-// // Create HTML for each table row
-// function createTableRow(user, index) {
-//   return `
-//     <tr data-user-id="${user.id}">
-//       <td>${index + 1}</td>
-//       <td>${user.faculty_id}</td>
-//       <td>${user.training_name}</td>
-//       <td>${user.training_id}</td>
-//       <td>${user.training_title}</td>
-//         <td>${user.start_date}</td>
-//          <td>${user.end_date}</td>
-//       <td>
-//         <button class="btn btn-sm btn-primary edit-btn">Edit</button>
-//         <button class="btn btn-sm btn-danger delete-btn">Delete</button>
-//       </td>
-//     </tr>
-//   `;
-// }
-
 
 const form = document.getElementById("myForm");
-const userInfo = document.getElementById("data");
-
-const faculty_idInput = document.getElementById("faculty_id");
-const faculty_nameInput = document.getElementById("faculty_name");
-const training_idInput = document.getElementById("training_id");
 const training_titleInput = document.getElementById("training_title");
 const start_dateInput = document.getElementById("start_date");
 const end_dateInput = document.getElementById("end_date");
+const number_of_hoursInput = document.getElementById("number_of_hours");
+const typeInput = document.getElementById("type");
+const agency_idInput = document.getElementById("agency_id");
+const siteInput = document.getElementById("site");
+const submitBtn = document.querySelector(".submit");
+const userInfo = document.getElementById("data");
+const modalTitle = document.querySelector("#userForm .modal-title");
 
-let isEdit = false, editId;
+let isEdit = false,
+    editId;
 
-// Fetch data when the document loads
-document.addEventListener("DOMContentLoaded", fetchUserData);
-
-// Form submission
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const userData = {
-    faculty_id: faculty_idInput.value,
-    faculty_name: faculty_nameInput.value,
-    training_id: training_idInput.value,
-    training_title: training_titleInput.value,
-    start_date: start_dateInput.value,
-    end_date: end_dateInput.value,
-  };
-
-  try {
-    if (isEdit) {
-      await supabase.from("registration").update(userData).eq("id", editId);
-    } else {
-      await supabase.from("registration").insert([userData]);
-    }
-
-    resetForm();
+// Load data when the document is ready
+document.addEventListener("DOMContentLoaded", () => {
     fetchUserData();
-  } catch (error) {
-    console.error("Error saving data:", error.message);
-  }
+
+    // Event delegation for edit and delete buttons
+    document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("edit-btn")) {
+            const userId = e.target.closest("tr").getAttribute("data-user-id");
+            editUser(userId);
+        } else if (e.target.classList.contains("delete-btn")) {
+            const userId = e.target.closest("tr").getAttribute("data-user-id");
+            deleteUser(userId);
+        }
+    });
 });
 
-// Fetch data from Supabase
-async function fetchUserData() {
-  try {
-    const { data, error } = await supabase.from("registration").select("*");
-    if (error) throw error;
+submitBtn.addEventListener("click", handleSubmit);
 
-    userInfo.innerHTML = data.map((user, index) =>
-      `
-      <tr data-user-id="${user.id}">
-        <td>${index + 1}</td>
-        <td>${user.faculty_id}</td>
-        <td>${user.faculty_name}</td>
-        <td>${user.training_id}</td>
-        <td>${user.training_title}</td>
-        <td>${user.start_date}</td>
-        <td>${user.end_date}</td>
-        <td>
-          <button class="btn btn-sm btn-warning edit-btn" onclick="editUser(${user.id})">Edit</button>
-          <button class="btn btn-sm btn-danger delete-btn" onclick="deleteUser(${user.id})">Delete</button>
-        </td>
-      </tr>`
-    ).join("");
-  } catch (error) {
-    console.error("Error fetching data:", error.message);
-  }
+// Fetch and display faculty data from Supabase
+async function fetchUserData() {
+    const { data, error } = await supabase.from("trainings").select("*");
+    if (error) {
+        console.error("Error fetching data:", error);
+        return;
+    }
+    userInfo.innerHTML = "";
+    data.forEach((user, index) => {
+        userInfo.innerHTML += createTableRow(user, index);
+    });
 }
 
-// Edit user
+// Handle form submission (create or update)
+async function handleSubmit(e) {
+    e.preventDefault();
+    const userData = {
+        training_title: training_titleInput.value,
+        start_date: start_dateInput.value,
+        end_date: end_dateInput.value,
+        number_of_hours: number_of_hoursInput.value,
+        type: typeInput.value,
+        agency_id: agency_idInput.value,
+        site: siteInput.value,
+    };
+
+    if (isEdit) {
+        // Update existing data
+        const { error } = await supabase.from("trainings").update(userData).eq("id", editId);
+        if (error) {
+            console.error("Error updating data:", error);
+            return;
+        }
+    } else {
+        // Insert new data
+        const { error } = await supabase.from("trainings").insert([userData]);
+        if (error) {
+            console.error("Error inserting data:", error);
+            return;
+        }
+    }
+
+    // Reset form and modal
+    form.reset();
+    
+    isEdit = false;
+    const userFormModal = bootstrap.Modal.getInstance(document.getElementById("userForm"));
+    userFormModal.hide();
+
+    // Refresh data
+    await fetchUserData();
+}
+
+// Edit user data
 async function editUser(userId) {
-  try {
-    const { data } = await supabase.from("registration").select("*").eq("id", userId).single();
-
-    if (!data) return;
-
-    // Populate fields
-    faculty_idInput.value = data.faculty_id;
-    faculty_nameInput.value = data.faculty_name;
-    training_idInput.value = data.training_id;
-    training_titleInput.value = data.training_title;
-    start_dateInput.value = data.start_date;
-    end_dateInput.value = data.end_date;
-
     isEdit = true;
     editId = userId;
 
-    new bootstrap.Modal(document.getElementById("userForm")).show();
-  } catch (error) {
-    console.error("Error editing user:", error.message);
-  }
+    const { data, error } = await supabase.from("trainings").select("*").eq("id", userId).single();
+    if (error) {
+        console.error("Error fetching data:", error);
+        return;
+    }
+
+    // Populate form with user data
+    
+    training_titleInput.value = data.training_title;
+    start_dateInput.value = data.start_date;
+    end_dateInput.value = data.end_date;
+    number_of_hoursInput.value = data.number_of_hours;
+    typeInput.value = data.type;
+    agency_idInput.value = data.agency_id;
+    siteInput.value = data.site;
+
+    // Open modal with edit title
+    modalTitle.innerText = "Edit Training";
+    const userFormModal = new bootstrap.Modal(document.getElementById("userForm"));
+    userFormModal.show();
 }
 
-// Delete user
+// Delete user data
 async function deleteUser(userId) {
-  if (!confirm("Are you sure you want to delete this record?")) return;
-
-  try {
-    await supabase.from("registration").delete().eq("id", userId);
-    fetchUserData();
-  } catch (error) {
-    console.error("Error deleting user:", error.message);
-  }
+    if (confirm("Are you sure you want to delete this training?")) {
+        const { error } = await supabase.from("trainings").delete().eq("id", userId);
+        if (error) {
+            console.error("Error deleting training:", error);
+            return;
+        }
+        await fetchUserData();
+    }
 }
 
-// Reset form
-function resetForm() {
-  form.reset();
-  isEdit = false;
-  editId = null;
-  bootstrap.Modal.getInstance(document.getElementById("userForm")).hide();
+// Create HTML for each table row
+function createTableRow(user, index) {
+    return `
+        <tr data-user-id="${user.id}">
+            <td>${index + 1}</td>
+            <td>${user.training_title}</td>
+            <td>${user.start_date}</td>
+            <td>${user.end_date}</td>
+            <td>${user.number_of_hours}</td>
+            <td>${user.type}</td>
+            <td>${user.agency_id}</td>
+            <td>${user.site}</td>
+            <td>
+                <button class="btn btn-primary edit-btn">Edit</button>
+                <button class="btn btn-danger delete-btn">Delete</button>
+            </td>
+        </tr>
+    `;
 }
-

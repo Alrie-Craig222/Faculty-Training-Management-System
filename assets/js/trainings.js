@@ -332,105 +332,193 @@ import { supabase } from '../../src/supabase.js';
 })();
 
 
+// const form = document.getElementById("myForm");
+// const training_titleInput = document.getElementById("training_title");
+// const start_dateInput = document.getElementById("start_date");
+// const end_dateInput = document.getElementById("end_date");
+// // const number_of_hoursInput = document.getElementById("number_of_hours");
+// const typeInput = document.getElementById("type");
+// // const agency_idInput = document.getElementById("agency_id");
+// const siteInput = document.getElementById("site");
+// const agency_nameInput = document.getElementById("agency_name");
+// const submitBtn = document.querySelector(".submit");
+// const userInfo = document.getElementById("data");
+// const modalTitle = document.querySelector("#userForm .modal-title");
+
+// let isEdit = false,
+//     editId;
+
+// // Load data when the document is ready
+// document.addEventListener("DOMContentLoaded", () => {
+//     fetchUserData();
+
+//     // Event delegation for edit and delete buttons
+//     document.addEventListener("click", (e) => {
+//         if (e.target.classList.contains("edit-btn")) {
+//             const userId = e.target.closest("tr").getAttribute("data-user-id");
+//             editUser(userId);
+//         } else if (e.target.classList.contains("delete-btn")) {
+//             const userId = e.target.closest("tr").getAttribute("data-user-id");
+//             deleteUser(userId);
+//         }
+//     });
+// });
+
+// submitBtn.addEventListener("click", handleSubmit);
+
+// // Fetch and display faculty data from Supabase
+// async function fetchUserData() {
+//     const { data, error } = await supabase.from("view_upcoming_trainings").select("*");
+//     if (error) {
+//         console.error("Error fetching data:", error);
+//         return;
+//     }
+//     userInfo.innerHTML = "";
+//     data.forEach((user, index) => {
+//         userInfo.innerHTML += createTableRow(user, index);
+//     });
+// }
+
+// // Handle form submission (create or update)
+// async function handleSubmit(e) {
+//     e.preventDefault();
+//     const userData = {
+//         training_title: training_titleInput.value,
+//         start_date: start_dateInput.value,
+//         end_date: end_dateInput.value,
+//         // number_of_hours: number_of_hoursInput.value,
+//         type: typeInput.value,
+//         // agency_id: agency_idInput.value,
+//         site: siteInput.value,
+//         agency_name: agency_nameInput.value,
+//     };
+
+//     if (isEdit) {
+//         // Update existing data
+//         const { error } = await supabase.from("view_upcoming_trainings").update(userData).eq("id", editId);
+//         if (error) {
+//             console.error("Error updating data:", error);
+//             return;
+//         }
+//     } else {
+//         // Insert new data
+//         const { error } = await supabase.from("view_upcoming_trainings").insert([userData]);
+//         if (error) {
+//             console.error("Error inserting data:", error);
+//             return;
+//         }
+//     }
+
+//     // Reset form and modal
+//     form.reset();
+    
+//     isEdit = false;
+//     const userFormModal = bootstrap.Modal.getInstance(document.getElementById("userForm"));
+//     userFormModal.hide();
+
+//     // Refresh data
+//     await fetchUserData();
+// }
+
+
+// // Create HTML for each table row
+// function createTableRow(user, index) {
+//     return `
+//         <tr data-user-id="${user.id}">
+//             <td>${index + 1}</td>
+//             <td>${user.training_title}</td>
+//             <td>${user.start_date}</td>
+//             <td>${user.end_date}</td>
+           
+//             <td>${user.type}</td>
+            
+//             <td>${user.site}</td>
+//             <td>${user.agency_name}</td>
+//         </tr>
+//     `;
+// }
+
+
 const form = document.getElementById("myForm");
 const training_titleInput = document.getElementById("training_title");
 const start_dateInput = document.getElementById("start_date");
 const end_dateInput = document.getElementById("end_date");
-const number_of_hoursInput = document.getElementById("number_of_hours");
-const typeInput = document.getElementById("type");
-const agency_idInput = document.getElementById("agency_id");
+// const typeInput = document.getElementById("type");
 const siteInput = document.getElementById("site");
+const agency_nameInput = document.getElementById("agency_name");
 const submitBtn = document.querySelector(".submit");
 const userInfo = document.getElementById("data");
-const modalTitle = document.querySelector("#userForm .modal-title");
 
-let isEdit = false,
-    editId;
+let isEdit = false;
+let editId = null;
 
-// Load data when the document is ready
 document.addEventListener("DOMContentLoaded", () => {
-    fetchUserData();
+  fetchUserData();
 
-    // Event delegation for edit and delete buttons
-    document.addEventListener("click", (e) => {
-        if (e.target.classList.contains("edit-btn")) {
-            const userId = e.target.closest("tr").getAttribute("data-user-id");
-            editUser(userId);
-        } else if (e.target.classList.contains("delete-btn")) {
-            const userId = e.target.closest("tr").getAttribute("data-user-id");
-            deleteUser(userId);
-        }
-    });
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("edit-btn")) {
+      const userId = e.target.closest("tr").dataset.userId;
+      editUser(userId);
+    } else if (e.target.classList.contains("delete-btn")) {
+      const userId = e.target.closest("tr").dataset.userId;
+      deleteUser(userId);
+    }
+  });
 });
 
 submitBtn.addEventListener("click", handleSubmit);
 
-// Fetch and display faculty data from Supabase
 async function fetchUserData() {
-    const { data, error } = await supabase.from("trainings").select("*");
-    if (error) {
-        console.error("Error fetching data:", error);
-        return;
-    }
-    userInfo.innerHTML = "";
-    data.forEach((user, index) => {
-        userInfo.innerHTML += createTableRow(user, index);
-    });
+  const { data, error } = await supabase.from("view_upcoming_trainings").select("*");
+  if (error) {
+    console.error("Error fetching data:", error);
+    return;
+  }
+
+  userInfo.innerHTML = data.map(createTableRow).join("");
 }
 
-// Handle form submission (create or update)
 async function handleSubmit(e) {
-    e.preventDefault();
-    const userData = {
-        training_title: training_titleInput.value,
-        start_date: start_dateInput.value,
-        end_date: end_dateInput.value,
-        number_of_hours: number_of_hoursInput.value,
-        type: typeInput.value,
-        agency_id: agency_idInput.value,
-        site: siteInput.value,
-    };
+  e.preventDefault();
 
-    if (isEdit) {
-        // Update existing data
-        const { error } = await supabase.from("trainings").update(userData).eq("id", editId);
-        if (error) {
-            console.error("Error updating data:", error);
-            return;
-        }
-    } else {
-        // Insert new data
-        const { error } = await supabase.from("trainings").insert([userData]);
-        if (error) {
-            console.error("Error inserting data:", error);
-            return;
-        }
+  const userData = {
+    training_title: training_titleInput.value,
+    start_date: start_dateInput.value,
+    end_date: end_dateInput.value,
+    // type: typeInput.value,
+    site: siteInput.value,
+    agency_name: agency_nameInput.value,
+  };
+
+  if (isEdit) {
+    const { error } = await supabase.from("view_upcoming_trainings").update(userData).eq("id", editId);
+    if (error) {
+      console.error("Error updating data:", error);
+      return;
     }
+  } else {
+    const { error } = await supabase.from("view_upcoming_trainings").insert([userData]);
+    if (error) {
+      console.error("Error inserting data:", error);
+      return;
+    }
+  }
 
-    // Reset form and modal
-    form.reset();
-    
-    isEdit = false;
-    const userFormModal = bootstrap.Modal.getInstance(document.getElementById("userForm"));
-    userFormModal.hide();
-
-    // Refresh data
-    await fetchUserData();
+  form.reset();
+  isEdit = false;
+  await fetchUserData();
 }
 
-
-// Create HTML for each table row
 function createTableRow(user, index) {
-    return `
-        <tr data-user-id="${user.id}">
-            <td>${index + 1}</td>
-            <td>${user.training_title}</td>
-            <td>${user.start_date}</td>
-            <td>${user.end_date}</td>
-            <td>${user.number_of_hours}</td>
-            <td>${user.type}</td>
-            <td>${user.agency_id}</td>
-            <td>${user.site}</td>
-        </tr>
-    `;
+  return `
+    <tr data-user-id="${user.id}">
+      <td>${index + 1}</td>
+      <td>${user.training_title}</td>
+      <td>${user.start_date}</td>
+      <td>${user.end_date}</td>
+     
+      <td>${user.site}</td>
+      <td>${user.agency_name}</td>
+    </tr>`;
 }
+
